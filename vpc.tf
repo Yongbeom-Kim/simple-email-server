@@ -68,15 +68,15 @@ resource "aws_security_group" "allow_all_local" {
 }
 
 resource "aws_vpc_security_group_egress_rule" "allow_all_local" {
-    security_group_id = aws_security_group.allow_all_local.id
-    cidr_ipv4 = aws_vpc.main.cidr_block
-    ip_protocol = "-1"
+  security_group_id = aws_security_group.allow_all_local.id
+  cidr_ipv4         = aws_vpc.main.cidr_block
+  ip_protocol       = "-1"
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_all_local" {
-    security_group_id = aws_security_group.allow_all_local.id
-    cidr_ipv4 = aws_vpc.main.cidr_block
-    ip_protocol = "-1"
+  security_group_id = aws_security_group.allow_all_local.id
+  cidr_ipv4         = aws_vpc.main.cidr_block
+  ip_protocol       = "-1"
 }
 
 # Allow EC2 instance connect
@@ -91,11 +91,11 @@ resource "aws_security_group" "allow_ec2_instance_connect" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "allow_ec2_instance_connect" {
-    security_group_id = aws_security_group.allow_ec2_instance_connect.id
-    from_port = 22
-    to_port = 22
-    ip_protocol = "tcp"
-    cidr_ipv4 = "18.206.107.24/29"
+  security_group_id = aws_security_group.allow_ec2_instance_connect.id
+  from_port         = 22
+  to_port           = 22
+  ip_protocol       = "tcp"
+  cidr_ipv4         = "18.206.107.24/29"
 }
 
 # Allow internet access
@@ -110,17 +110,17 @@ resource "aws_security_group" "allow_internet_access" {
 }
 
 resource "aws_vpc_security_group_egress_rule" "allow_internet_access_http" {
-    security_group_id = aws_security_group.allow_internet_access.id
-    from_port = 80
-    to_port = 80
-    ip_protocol = "tcp"
-    cidr_ipv4 = "0.0.0.0/0"
+  security_group_id = aws_security_group.allow_internet_access.id
+  from_port         = 80
+  to_port           = 80
+  ip_protocol       = "tcp"
+  cidr_ipv4         = "0.0.0.0/0"
 }
 
 resource "aws_vpc_security_group_egress_rule" "allow_internet_access_https" {
-    security_group_id = aws_security_group.allow_internet_access.id
-    from_port = 443
-    to_port = 443
-    ip_protocol = "tcp"
-    cidr_ipv4 = "0.0.0.0/0"
+  security_group_id = aws_security_group.allow_internet_access.id
+  from_port         = 443
+  to_port           = 443
+  ip_protocol       = "tcp"
+  cidr_ipv4         = "0.0.0.0/0"
 }
