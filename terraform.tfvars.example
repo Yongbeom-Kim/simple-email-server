@@ -1,0 +1,2 @@
+domain       = "example.com"
+service_name = "example-com-email"
