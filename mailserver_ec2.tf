@@ -34,11 +34,18 @@ resource "aws_instance" "mail_server" {
 
   user_data = <<-EOF
               #!/bin/bash
+
+              # Install Docker
               yum update -y
               yum install -y docker
               service docker start
               usermod -aG docker ec2-user
               chkconfig docker on
+
+              # Mount Amazon EFS
+              sudo yum install -y amazon-efs-utils
+              mkdir /efs
+              ${local.efs_mount_access_point_command}
               EOF
 
   user_data_replace_on_change = true

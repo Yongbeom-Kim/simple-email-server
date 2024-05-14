@@ -36,11 +36,15 @@ resource "aws_efs_mount_target" "mailbox" {
   security_groups = [aws_security_group.allow_all_local.id]
 }
 
-// TODO: EFS Mount commands that can be used to mount the EFS filesystem in an EC2 instance (inside the VPC)
-output "efs_mount_command" {
-  value = "sudo mount -t efs -o tls,mounttargetip=${aws_efs_mount_target.mailbox.ip_address} ${aws_efs_file_system.mailbox.id} /efs"
+// EFS Mount commands
+# output "efs_mount_command" {
+#   value = "sudo mount -t efs -o tls,mounttargetip=${aws_efs_mount_target.mailbox.ip_address} ${aws_efs_file_system.mailbox.id} /efs"
+# }
+
+locals {
+    efs_mount_access_point_command = "mount -t efs -o tls,mounttargetip=${aws_efs_mount_target.mailbox.ip_address},accesspoint=${aws_efs_access_point.mailbox.id} ${aws_efs_file_system.mailbox.id} /efs"
 }
 
 output "efs_mount_access_point_command" {
-  value = "sudo mount -t efs -o tls,mounttargetip=${aws_efs_mount_target.mailbox.ip_address},accesspoint=${aws_efs_access_point.mailbox.id} ${aws_efs_file_system.mailbox.id} /efs"
+  value = "sudo ${local.efs_mount_access_point_command}"
 }
